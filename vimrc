@@ -21,10 +21,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'whatyouhide/vim-gotham'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'itchyny/lightline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-" Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/syntastic'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -113,6 +113,9 @@ else
       au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
+" Cursorline
+set cursorline
+
 " lightline
 set laststatus=2
 let g:lightline = { 'colorscheme': 'gotham256' }
@@ -126,9 +129,10 @@ match ws /\s\+$/
 autocmd BufWinEnter * match ws / \+$/
 
 " NERDTree config
-" autocmd vimenter * NERDTree
+autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:nerdtree_tabs_open_on_console_startup=1
 
 " NERDTree git config
 let g:NERDTreeIndicatorMapCustom = {
@@ -146,4 +150,18 @@ let g:NERDTreeIndicatorMapCustom = {
 " search highlight and toggle highlight
 set hlsearch!
 map <C-f> :set hlsearch!<CR>
+
+" create/switch tabs
+map <C-t> :tabnew<CR>
+
+" Syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers=1
 
