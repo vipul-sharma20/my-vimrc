@@ -1,7 +1,8 @@
 " Vipul Sharma .vimrc
 
-set nocompatible              " required
-filetype off                  " required
+set nocompatible 	" required
+set backspace=2 	" required
+filetype off 		" required
 
 " Paste mode in INSERT
 set pastetoggle=<F10>
@@ -21,6 +22,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'whatyouhide/vim-gotham'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
