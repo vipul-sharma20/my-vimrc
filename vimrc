@@ -1,8 +1,10 @@
 " Vipul Sharma .vimrc
 
-set nocompatible 	" required
-set backspace=2 	" required
-filetype off 		" required
+set nocompatible		" required
+set backspace=2			" required
+filetype on			" required
+filetype plugin on		" required
+filetype plugin indent on	" required
 
 " Paste mode in INSERT
 set pastetoggle=<F10>
@@ -16,8 +18,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'tmhedberg/SimpylFold'
-" Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'whatyouhide/vim-gotham'
 Plugin 'vim-airline/vim-airline'
@@ -33,7 +33,6 @@ Plugin 'scrooloose/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
 
 " sv command split mode
 set splitright
@@ -131,10 +130,13 @@ match ws /\s\+$/
 autocmd BufWinEnter * match ws / \+$/
 
 " NERDTree config
-autocmd vimenter * NERDTree
+
+" open NERDTree on startup
+" autocmd vimenter * NERDTree
+
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 
 " NERDTree git config
 let g:NERDTreeIndicatorMapCustom = {
@@ -165,5 +167,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers=1
-
+let g:syntastic_python_checkers= ['flake8']
