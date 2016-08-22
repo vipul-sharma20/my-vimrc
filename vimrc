@@ -3,7 +3,7 @@
 set nocompatible		" required
 set backspace=2			" required
 filetype on			" required
-filetype plugin on		" required
+filetype plugin on
 filetype plugin indent on	" required
 
 " Paste mode in INSERT
@@ -27,6 +27,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
+Plugin 'vim-scripts/Conque-Shell'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -40,6 +41,9 @@ set splitright
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
+
+" monitor realtime changes to a file
+set autoread
 
 " show docstrings for folded code
 " let g:SimpylFold_docstring_preview=1
@@ -159,12 +163,19 @@ map <C-f> :set hlsearch!<CR>
 map <C-t> :tabnew<CR>
 
 " Syntastic config
+map <C-y> :SyntasticCheck<CR>
+map <C-u> :SyntasticToggleMode<CR>
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers= ['flake8']
+
+" Conque shell config
+map <C-s> :ConqueTermVSplit zsh<CR>
+
