@@ -1,10 +1,16 @@
 " Vipul Sharma .vimrc
 
-set nocompatible		" required
-set backspace=2			" required
-filetype on			" required
+set nocompatible              " required
+set backspace=2		      " required
+filetype on                  " required
 filetype plugin on
-filetype plugin indent on	" required
+filetype plugin indent on    " required
+
+" remove scroll bar
+set guioptions-=r
+
+" Copy to clipboard
+vmap <C-c> "*y
 
 " Paste mode in INSERT
 set pastetoggle=<F10>
@@ -28,6 +34,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/Conque-Shell'
+Plugin 'terryma/vim-multiple-cursors'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -154,6 +161,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+set guioptions-=L
 
 " search highlight and toggle highlight
 set hlsearch!
@@ -179,3 +187,5 @@ let g:syntastic_python_checkers= ['flake8']
 " Conque shell config
 map <C-s> :ConqueTermVSplit zsh<CR>
 
+" Multicursor config
+let g:multi_cursor_next_key='<C-c>'
