@@ -35,6 +35,8 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/Conque-Shell'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'fatih/vim-go'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -57,14 +59,14 @@ set autoread
 
 " Number of spaces that a pre-existing tab is equal to.
 " For the amount of space used for a new tab use shiftwidth.
-au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
+au BufRead,BufNewFile *py,*pyw,*.c,*.h,*.go set tabstop=4
 
 " What to use for an indent.
 " This will affect Ctrl-T and 'autoindent'.
 " Python: 4 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.py,*pyw,*.go set shiftwidth=4
+au BufRead,BufNewFile *.py,*.pyw,*.go set expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=4
@@ -189,3 +191,4 @@ map <C-s> :ConqueTermVSplit zsh<CR>
 
 " Multicursor config
 let g:multi_cursor_next_key='<C-c>'
+
