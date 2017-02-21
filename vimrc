@@ -1,7 +1,7 @@
 " Vipul Sharma .vimrc
 
 set nocompatible              " required
-set backspace=2		      " required
+set backspace=2              " required
 filetype on                  " required
 filetype plugin on
 filetype plugin indent on    " required
@@ -38,6 +38,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-surround'
+Plugin 'dracula/vim'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -141,6 +142,7 @@ autocmd BufWinEnter * match ws / \+$/
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:nerdtree_tabs_open_on_console_startup=0
+let g:nerdtree_tabs_open_on_gui_startup=0
 
 " NERDTree git config
 let g:NERDTreeIndicatorMapCustom = {
@@ -182,4 +184,3 @@ map <C-s> :ConqueTermVSplit zsh<CR>
 
 " Multicursor config
 let g:multi_cursor_next_key='<C-c>'
-
