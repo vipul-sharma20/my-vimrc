@@ -19,10 +19,6 @@ set pastetoggle=<F10>
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'whatyouhide/vim-gotham'
@@ -39,19 +35,42 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-surround'
 Plugin 'dracula/vim'
-
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+if has("gui_macvim")
+  colorscheme dracula
+  set fu
+  " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
+  " the right side. Ctrl-Shift-Tab goes the other way.
+  noremap <C-Tab> :tabnext<CR>
+  noremap <C-S-Tab> :tabprev<CR>
+
+  " Switch to specific tab numbers with Command-number
+  noremap <D-1> :tabn 1<CR>
+  noremap <D-2> :tabn 2<CR>
+  noremap <D-3> :tabn 3<CR>
+  noremap <D-4> :tabn 4<CR>
+  noremap <D-5> :tabn 5<CR>
+  noremap <D-6> :tabn 6<CR>
+  noremap <D-7> :tabn 7<CR>
+  noremap <D-8> :tabn 8<CR>
+  noremap <D-9> :tablast<CR>
+else
+    colorscheme gotham256
+    let g:lightline = { 'colorscheme': 'gotham256' }
+endif
 
 " sv command split mode
 set splitright
 
 " Enable folding
 set foldmethod=indent
-set foldlevel=99
+" set foldlevel=8
 
 " monitor realtime changes to a file
 set autoread
@@ -59,16 +78,9 @@ set autoread
 " show docstrings for folded code
 " let g:SimpylFold_docstring_preview=1
 
-" Number of spaces that a pre-existing tab is equal to.
-" For the amount of space used for a new tab use shiftwidth.
-au BufRead,BufNewFile *py,*pyw,*.c,*.h,*.go set tabstop=4
-
-" What to use for an indent.
-" This will affect Ctrl-T and 'autoindent'.
-" Python: 4 spaces
-" C: tabs (pre-existing files) or 4 spaces (new files)
-au BufRead,BufNewFile *.py,*pyw,*.go set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw,*.go set expandtab
+set tabstop=4
+set shiftwidth=4
+set expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=4
@@ -100,9 +112,6 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " mouse scroll
 :set mouse=nicr
 
-" gotham colorscheme
-:colorscheme gotham256
-
 " syntax highlighting
 :syntax on
 let python_highlight_all = 1
@@ -124,7 +133,6 @@ set cursorline
 
 " lightline
 set laststatus=2
-let g:lightline = { 'colorscheme': 'gotham256' }
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -184,3 +192,12 @@ map <C-s> :ConqueTermVSplit zsh<CR>
 
 " Multicursor config
 let g:multi_cursor_next_key='<C-c>'
+
+" GitGutter config
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+
+" Custom commands
+
+" Pretty JSON
+:command Json %!python -m json.tool
