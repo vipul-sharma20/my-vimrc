@@ -37,7 +37,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'dracula/vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-
+Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'yegappan/mru'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -196,6 +197,9 @@ let g:multi_cursor_next_key='<C-c>'
 " GitGutter config
 let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
+
+" MRU
+map <C-m> :Mru<CR>
 
 " Custom commands
 
