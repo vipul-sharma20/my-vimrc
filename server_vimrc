@@ -1,0 +1,47 @@
+" Tab/space config
+set tabstop=4
+set shiftwidth=4
+set expandtab
+fu Select_c_style()
+    if search('^\t', 'n', 150)
+        set shiftwidth=4
+        set noexpandtab
+    el
+        set shiftwidth=4
+        set expandtab
+    en
+endf
+
+colorscheme slate
+
+" Wrap text after 79 characters
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
+
+set pastetoggle=<F10>  " Paste mode
+set encoding=utf-8  " encoding
+set nu  " set line number
+set mouse=nicr  " mouse scroll
+" set foldmethod=indent  " enable code folding
+set autoread  " monitor realtime changes to file
+
+" Copy to clipboard
+vmap <C-c> "*y
+
+" column marker
+if exists('+colorcolumn')
+      set colorcolumn=80
+else
+      au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+" Highlight bad whitespace
+highlight ws ctermbg=red guibg=red
+match ws /\s\+$/
+autocmd BufWinEnter * match ws / \+$/
+
+" search highlight and toggle highlight
+set hlsearch!
+map <C-f> :set hlsearch!<CR>
+
+" Pretty JSON
+:command Json %!python -m json.tool
