@@ -106,6 +106,7 @@ set encoding=utf-8
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
 " set line number
 :set nu
@@ -199,7 +200,7 @@ let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
 " MRU
-map <C-m> :Mru<CR>
+" map <C-m> :Mru<CR>
 
 " Custom commands
 
