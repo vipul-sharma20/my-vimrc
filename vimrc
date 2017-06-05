@@ -6,6 +6,8 @@ filetype on                  " required
 filetype plugin on
 filetype plugin indent on    " required
 
+set background=dark
+
 " remove scroll bar
 set guioptions-=r
 
@@ -32,19 +34,26 @@ Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/Conque-Shell'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'fatih/vim-go'
+" Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-surround'
 Plugin 'dracula/vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'yegappan/mru'
+Plugin 'mindriot101/vim-yapf'
+Plugin 'vipul-sharma20/papercolor-theme'
+Plugin 'morhetz/gruvbox'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'chriskempson/vim-tomorrow-theme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
 if has("gui_macvim")
-  colorscheme dracula
+  colorscheme hybrid
+
   set fu
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
   " the right side. Ctrl-Shift-Tab goes the other way.
@@ -62,8 +71,8 @@ if has("gui_macvim")
   noremap <D-8> :tabn 8<CR>
   noremap <D-9> :tablast<CR>
 else
-    colorscheme gotham256
-    let g:lightline = { 'colorscheme': 'gotham256' }
+    colorscheme hybrid
+    " let g:lightline = { 'colorscheme': 'gotham256' }
 endif
 
 " sv command split mode
@@ -97,7 +106,7 @@ au BufRead,BufNewFile Makefile* set noexpandtab
 " Wrap text after a certain number of characters
 " Python: 79
 " C: 79
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
 
 " Making sure with encoding
 set encoding=utf-8
@@ -106,7 +115,7 @@ set encoding=utf-8
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+" let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
 " set line number
 :set nu
@@ -200,9 +209,19 @@ let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
 " MRU
-" map <C-m> :Mru<CR>
+map <C-m> :Mru<CR>
 
 " Custom commands
 
 " Pretty JSON
 :command Json %!python -m json.tool
+
+" Crontab config
+if $VIM_CRONTAB == "true"
+    set nobackup
+    set nowritebackup
+endif
+
+" Yapf config
+:nnoremap <leader>y :Yapf<cr>
+
