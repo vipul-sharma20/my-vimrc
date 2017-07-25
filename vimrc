@@ -30,7 +30,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'"
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 " Plugin 'fatih/vim-go'
@@ -46,6 +46,8 @@ Plugin 'morhetz/gruvbox'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'w0rp/ale'
+Plugin 'vimlab/split-term.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -184,19 +186,24 @@ map <C-f> :set hlsearch!<CR>
 " create/switch tabs
 map <C-t> :tabnew<CR>
 
-" Syntastic config
-map <C-y> :SyntasticCheck<CR>
-map <C-u> :SyntasticToggleMode<CR>
-
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers= ['flake8']
+" Syntastic config
+" map <C-y> :SyntasticCheck<CR>
+" map <C-u> :SyntasticToggleMode<CR>
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_python_checkers= ['flake8']
+
+" Ale config
+let g:airline#extensions#ale#enabled = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Conque shell config
 map <C-s> :ConqueTermVSplit zsh<CR>
