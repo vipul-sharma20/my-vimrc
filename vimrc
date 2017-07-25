@@ -31,7 +31,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/Conque-Shell'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 " Plugin 'fatih/vim-go'
@@ -113,6 +112,7 @@ set encoding=utf-8
 
 " YCM config
 let g:ycm_python_binary_path = 'python'
+let g:ycm_server_python_interpreter = 'python'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " let g:ycm_path_to_python_interpreter = '/usr/bin/python'
@@ -205,11 +205,10 @@ map <C-s> :ConqueTermVSplit zsh<CR>
 let g:multi_cursor_next_key='<C-c>'
 
 " GitGutter config
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
+set updatetime=250
 
 " MRU
-map <C-m> :Mru<CR>
+:command M Mru
 
 " Custom commands
 
