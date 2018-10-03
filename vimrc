@@ -32,6 +32,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/vim-cursorword'
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -78,7 +79,7 @@ let g:buffergator_mru_cycle_loop = 1
 " :colorscheme Tomorrow-Night
 :colorscheme gruvbox
 
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark='soft'
 set bg=dark
 highlight clear SignColumn
 highlight clear Folded
@@ -99,7 +100,7 @@ nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 let g:ale_filetype_blacklist = ['qf', 'tags', 'unite', 'terminal', 'term']
 let g:ale_sign_column_always = 1
-let b:ale_linters = {'python': ['flake8']}
+let b:ale_linters = {'python': ['yapf']}
 let b:ale_fixers = ['autopep8']
 nnoremap <F8> :ALEFix<CR>
 
@@ -114,7 +115,7 @@ let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=grey
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
-let g:indentLine_char = '¦'
+let g:indentLine_char = '┆'
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
@@ -451,4 +452,8 @@ set wildignorecase
 
 " Jsonify
 :command Json %!python -m json.tool
+
+set encoding=utf-8
+
+set iskeyword-=_
 
