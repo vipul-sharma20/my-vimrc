@@ -32,6 +32,10 @@ Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'itchyny/vim-cursorword'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
+Plugin 'mdempsky/gocode'
+Plugin 'fatih/vim-go'
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -99,8 +103,8 @@ nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 let g:ale_filetype_blacklist = ['qf', 'tags', 'unite', 'terminal', 'term']
 let g:ale_sign_column_always = 1
-let b:ale_linters = {'python': ['yapf']}
-let b:ale_fixers = ['autopep8']
+let b:ale_linters = {'python': ['yapf', 'autopep8']}
+let b:ale_fixers = ['autopep8', 'yapf']
 nnoremap <F8> :ALEFix<CR>
 
 let g:ale_echo_msg_error_str = 'E'
