@@ -303,7 +303,12 @@ function! GenCtags ()
     !ctags -R
     echo getcwd()
 endfunction
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""other config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""other config
+
+function! CtagPython ()
+    !ctags -R --fields=+l --languages=python --python-kinds=-i -f ./tags $(python3 -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
+    echo getcwd()
+endfunction
 
 "to make vim show current filename
 set laststatus=2
@@ -486,3 +491,6 @@ function! RangeSearch(direction)
 endfunction
 vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
 vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
+
+" ctag mapping
+:nnoremap <C-]> g<C-]>
