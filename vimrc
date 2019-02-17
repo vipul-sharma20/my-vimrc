@@ -1,8 +1,7 @@
 " to start pathogen
-let g:pathogen_disabled = ['jedi-vim', 'taglist', 'nvim-completion-manager']
+let g:pathogen_disabled = ['taglist', 'nvim-completion-manager']
 execute pathogen#infect()
-
-syntax on
+" syntax on
 filetype plugin indent on
 
 " set the runtime path to include Vundle and initialize
@@ -18,9 +17,17 @@ Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 Plugin 'shime/vim-livedown'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'ryanolsonx/vim-lsp-python'
+" Plugin 'ervandew/supertab'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'zchee/deoplete-jedi'
 Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
 Plugin 'easymotion/vim-easymotion'
@@ -35,33 +42,33 @@ Plugin 'itchyny/vim-cursorword'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'mdempsky/gocode'
-Plugin 'fatih/vim-go'
+" Plugin 'fatih/vim-go'
+Plugin 'integralist/vim-mypy'
+Plugin 'wsdjeg/FlyGrep.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'rking/ag.vim'
+Plugin 'pbogut/fzf-mru.vim'
+Plugin 'rakr/vim-one'
+Plugin 'joshdick/onedark.vim'
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["~/.vim/bundle/vim-snippets/UltiSnips"]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsUsePythonVersion = 3
 
+let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.6/bin/python3' 
 
 set ignorecase
 
 "NerdTree ignoring files
 let NERDTreeIgnore = ['\.pyc$']
-
-
-"easymotion settings
-map / <Plug>(easymotion-sn)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " bffergator settings
 :set hidden
@@ -80,15 +87,18 @@ let g:buffergator_mru_cycle_loop = 1
 
 " chosen colorscheme for vim and airline
 " :colorscheme Tomorrow-Night
-:colorscheme gruvbox
+:colorscheme one
 
-let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_contrast_dark='hard'
 set bg=dark
 highlight clear SignColumn
 highlight clear Folded
 
-" :let g:airline_theme='dark'
+" Don't remove the trailing whitespace
+set fillchars=fold:\ 
 
+
+:let g:airline_theme='one'
 
 " settings for the vim-jsdoc plugins
 let g:jsdoc_enable_es6 = 1
@@ -97,13 +107,12 @@ let g:jsdoc_return = 1
 let g:jsdoc_return_type = 1
 let g:jsdoc_return_description = 1
 
-
 " setting ale plugin
 nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 let g:ale_filetype_blacklist = ['qf', 'tags', 'unite', 'terminal', 'term']
 let g:ale_sign_column_always = 1
-let b:ale_linters = {'python': ['yapf', 'autopep8']}
+let b:ale_linters = {'python': ['flake8', 'yapf', 'autopep8', 'mypy']}
 let b:ale_fixers = ['autopep8', 'yapf']
 nnoremap <F8> :ALEFix<CR>
 
@@ -114,13 +123,13 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " settings for the indentLine and indentGuide plugins
 set ts=4 sw=4 et
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=grey
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
-let g:indentLine_char = '┆'
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
+" let g:indent_guides_enable_on_vim_startup = 0
+" let g:indent_guides_auto_colors = 0
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=grey
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
+" let g:indentLine_char = ''
+" let g:indent_guides_start_level = 2
+" let g:indent_guides_guide_size = 1
 
 " airline settings
 let g:airline_powerline_fonts = 0
@@ -134,14 +143,19 @@ let g:acp_ignorecaseOption = 0
 " deoplete settings
 " let g:deoplete#enable_at_startup = 1
 
+" Jedi vim
+let g:jedi#show_call_signatures = "1"
+let g:jedi#popup_select_first = 0
+" autocmd FileType python setlocal completeopt+=preview
+
 " YCM config
 let g:loaded_python_provider=1
 let g:ycm_python_binary_path = 'python'
-let g:ycm_server_python_interpreter = 'python'
+" let g:ycm_server_python_interpreter = 'python'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " let g:ycm_path_to_python_interpreter = '/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
-let g:ycm_path_to_python_interpreter = '/usr/local/bin/python3'
+let g:ycm_path_to_python_interpreter = '/Library/Frameworks/Python.framework/Versions/3.6/bin/python3'
 let g:ycm_key_invoke_completion = '<C-c>'
 
 
@@ -298,14 +312,14 @@ function! MaximizeToggle()
 endfunction
 
 
-"" Helping with ctags very simple for now
+" Helping with ctags very simple for now
 function! GenCtags ()
     !ctags -R
     echo getcwd()
 endfunction
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""other config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""other config
 
-function! CtagPython ()
+function! CtagPython()
     !ctags -R --fields=+l --languages=python --python-kinds=-i -f ./tags $(python3 -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
     echo getcwd()
 endfunction
@@ -331,15 +345,15 @@ set tags=./tags;/,tags;/
 :command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 "Command to setup things while commenting code or commit messages
-:command Comment :set spell! spelllang=en_us | :set cc=72
-:command Commit :set spell! spelllang=en_us | :set cc=72 | silent :call AddGitTemplateAddition()
-:command GC :R git diff --cached
-
-"Compile the current cpp file
-:command CC execute 'silent ! g++ -DDEBUG %:t -o %:t.out 2>output.txt 1>output.txt' | execute ':redraw!'
-:command Run execute 'silent ! ./%:t.out 1>output.txt 2>output.txt < input.txt' | execute ':redraw!'
-
-:command CachedDiff :Commit | :R 'git diff --cached' | :set cc=0 | :set spell! spelllang=en_us
+" :command Comment :set spell! spelllang=en_us | :set cc=72
+" :command Commit :set spell! spelllang=en_us | :set cc=72 | silent :call AddGitTemplateAddition()
+" :command GC :R git diff --cached
+" 
+" "Compile the current cpp file
+" :command CC execute 'silent ! g++ -DDEBUG %:t -o %:t.out 2>output.txt 1>output.txt' | execute ':redraw!'
+" :command Run execute 'silent ! ./%:t.out 1>output.txt 2>output.txt < input.txt' | execute ':redraw!'
+" 
+" :command CachedDiff :Commit | :R 'git diff --cached' | :set cc=0 | :set spell! spelllang=en_us
 
 "adding other options
 set pastetoggle=<F5>
@@ -430,6 +444,7 @@ let vim_markdown_preview_github=1
 
 " Mouse
 set mouse=nicr
+" set mouse=a
 
 " GitGutter config
 let g:gitgutter_realtime = 1
@@ -459,16 +474,48 @@ autocmd BufWinEnter * match ws / \+$/
 set wildignorecase
 
 " Jsonify
-:command Json %!python -m json.tool
+" :command Json %!python -m json.tool
 
 set encoding=utf-8
 
-set iskeyword-=_
+" set iskeyword-=_
 
 set rtp+=/usr/local/bin/fzf
 
 nnoremap <leader>e :FZF<cr>
 nnoremap <leader>E :FZF!<cr>
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+nnoremap <leader>f :Ag<cr>
+
+command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#ag(<q-args>,
+"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \                 <bang>0)
+" 
+" function! s:escape(path)
+"   return substitute(a:path, ' ', '\\ ', 'g')
+" endfunction
+
+function! AgHandler(line)
+  let parts = split(a:line, ':')
+  let [fn, lno] = parts[0 : 1]
+  execute 'e '. s:escape(fn)
+  execute lno
+  normal! zz
+endfunction
+
+command! -nargs=+ Fag call fzf#run({
+  \ 'source': 'ag "<args>"',
+  \ 'sink': function('AgHandler'),
+  \ 'options': '+m',
+  \ 'tmux_height': '60%'
+\ })
+
+let g:FlyGrep_input_delay = 0
+let g:FlyGrep_search_tools = ['ack']
 
 " autoreload vimrc
 augroup myvimrchooks
@@ -494,3 +541,83 @@ vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|ex
 
 " ctag mapping
 :nnoremap <C-]> g<C-]>
+
+" LSP
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+set completeopt+=preview
+set cot+=preview
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
+
+set completeopt+=preview
+set cot+=preview
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" for asyncomplete.vim log
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+
+
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
+
+" modify selected text using combining diacritics
+command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')
+command! -range -nargs=0 Underline       call s:CombineSelection(<line1>, <line2>, '0332')
+command! -range -nargs=0 DoubleUnderline call s:CombineSelection(<line1>, <line2>, '0333')
+command! -range -nargs=0 Strikethrough   call s:CombineSelection(<line1>, <line2>, '0336')
+
+function! s:CombineSelection(line1, line2, cp)
+  execute 'let char = "\u'.a:cp.'"'
+  execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/ge'
+endfunction
+
+
+" FZF MRU
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+
+nnoremap <leader>m :FZFMru<cr>
+
+
+" Python syntax highlight
+" let python_highlight_all = 1
+
+"easymotion settings
+map / <Plug>(easymotion-sn)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+
